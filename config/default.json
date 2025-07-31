@@ -1,0 +1,49 @@
+{
+  "app": {
+    "name": "Rentify",
+    "version": "1.0.0",
+    "port": 3000
+  },
+  "database": {
+    "type": "sqlite",
+    "path": "./data/rental.db"
+  },
+  "storage": {
+    "uploadsPath": "./data/uploads",
+    "contractsPath": "./data/contracts",
+    "receiptsPath": "./data/receipts",
+    "maxFileSize": "10MB",
+    "allowedImageTypes": ["jpg", "jpeg", "png", "gif"],
+    "allowedDocumentTypes": ["pdf", "doc", "docx", "txt"]
+  },
+  "email": {
+    "enabled": true,
+    "templates": {
+      "rentReminder": "rent-reminder",
+      "contractNotification": "contract-notification",
+      "maintenanceNotification": "maintenance-notification"
+    }
+  },
+  "scheduler": {
+    "enabled": true,
+    "jobs": {
+      "paymentReminders": "0 9 * * *",
+      "monthlyRentGeneration": "0 0 1 * *",
+      "contractExpiryCheck": "0 9 * * 1"
+    }
+  },
+  "security": {
+    "jwtExpiresIn": "7d",
+    "bcryptRounds": 10,
+    "maxLoginAttempts": 5,
+    "lockoutTime": "15m"
+  },
+  "features": {
+    "multiTenant": true,
+    "digitalSignatures": true,
+    "automaticBackups": true,
+    "emailNotifications": true,
+    "maintenanceTracking": true,
+    "financialReporting": true
+  }
+}
