@@ -1,425 +1,233 @@
 "use client"
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Building2,
-  Users,
-  Euro,
-  Calendar,
-  FileText,
-  AlertTriangle,
-  CheckCircle,
-  Clock,
-  Plus,
-  Settings,
-  Bell,
-  Search,
-} from "lucide-react"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+import { Building2, Users, CreditCard, FileText, Plus, TrendingUp, AlertCircle, Calendar } from "lucide-react"
 import Link from "next/link"
 
 export default function DashboardPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-
-  // Mock data
-  const stats = {
-    totalProperties: 12,
-    totalTenants: 28,
-    monthlyRevenue: 15420,
-    pendingPayments: 3,
-    maintenanceRequests: 2,
-    expiringContracts: 1,
-  }
-
-  const recentPayments = [
-    { id: 1, tenant: "Marco Bianchi", property: "Via Roma 123", amount: 850, status: "paid", date: "2024-01-15" },
-    { id: 2, tenant: "Laura Verdi", property: "Corso Italia 45", amount: 1200, status: "pending", date: "2024-01-10" },
-    { id: 3, tenant: "Giuseppe Neri", property: "Via Milano 78", amount: 950, status: "overdue", date: "2024-01-05" },
-  ]
-
-  const upcomingTasks = [
-    { id: 1, type: "maintenance", title: "Riparazione caldaia", property: "Via Roma 123", date: "2024-01-20" },
-    { id: 2, type: "contract", title: "Rinnovo contratto", tenant: "Marco Bianchi", date: "2024-01-25" },
-    { id: 3, type: "inspection", title: "Ispezione annuale", property: "Corso Italia 45", date: "2024-01-30" },
-  ]
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "paid":
-        return "bg-green-100 text-green-800"
-      case "pending":
-        return "bg-yellow-100 text-yellow-800"
-      case "overdue":
-        return "bg-red-100 text-red-800"
-      default:
-        return "bg-gray-100 text-gray-800"
-    }
-  }
-
-  const getStatusText = (status: string) => {
-    switch (status) {
-      case "paid":
-        return "Pagato"
-      case "pending":
-        return "In attesa"
-      case "overdue":
-        return "In ritardo"
-      default:
-        return status
-    }
-  }
-
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b">
-        <div className="px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <Building2 className="h-8 w-8 text-blue-600" />
-                <h1 className="text-2xl font-bold">Rentify</h1>
-              </div>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <Input
-                  placeholder="Cerca proprietà, inquilini..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 w-64"
-                />
-              </div>
+      <header className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-2">
+              <Building2 className="h-8 w-8 text-blue-600" />
+              <span className="text-2xl font-bold text-gray-900">Rentify</span>
             </div>
             <div className="flex items-center space-x-4">
               <Button variant="outline" size="sm">
-                <Bell className="h-4 w-4 mr-2" />
-                Notifiche
-              </Button>
-              <Button variant="outline" size="sm">
-                <Settings className="h-4 w-4 mr-2" />
                 Impostazioni
               </Button>
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                MR
-              </div>
+              <Button variant="outline" size="sm">
+                Esci
+              </Button>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="p-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Welcome Section */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-gray-600">Benvenuto nel tuo sistema di gestione affitti</p>
+        </div>
+
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Proprietà</p>
-                  <p className="text-2xl font-bold">{stats.totalProperties}</p>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Proprietà Totali</CardTitle>
+              <Building2 className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">12</div>
+              <p className="text-xs text-muted-foreground">+2 dal mese scorso</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Inquilini Attivi</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">28</div>
+              <p className="text-xs text-muted-foreground">+4 dal mese scorso</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Entrate Mensili</CardTitle>
+              <CreditCard className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">€15,240</div>
+              <p className="text-xs text-muted-foreground">+8% dal mese scorso</p>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Contratti Attivi</CardTitle>
+              <FileText className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">25</div>
+              <p className="text-xs text-muted-foreground">3 in scadenza</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Azioni Rapide</CardTitle>
+              <CardDescription>Gestisci le tue proprietà e inquilini</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Link href="/dashboard/properties/new">
+                <Button className="w-full justify-start bg-transparent" variant="outline">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Aggiungi Proprietà
+                </Button>
+              </Link>
+              <Link href="/dashboard/tenants/new">
+                <Button className="w-full justify-start bg-transparent" variant="outline">
+                  <Users className="mr-2 h-4 w-4" />
+                  Nuovo Inquilino
+                </Button>
+              </Link>
+              <Link href="/dashboard/contracts/new">
+                <Button className="w-full justify-start bg-transparent" variant="outline">
+                  <FileText className="mr-2 h-4 w-4" />
+                  Crea Contratto
+                </Button>
+              </Link>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Pagamenti in Sospeso</CardTitle>
+              <CardDescription>Affitti da riscuotere questo mese</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Via Roma 123</p>
+                    <p className="text-sm text-gray-500">Mario Rossi</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">€850</p>
+                    <p className="text-sm text-red-500">Scaduto</p>
+                  </div>
                 </div>
-                <Building2 className="h-8 w-8 text-blue-600" />
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="font-medium">Via Milano 45</p>
+                    <p className="text-sm text-gray-500">Anna Verdi</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">€720</p>
+                    <p className="text-sm text-yellow-500">Tra 3 giorni</p>
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
 
           <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Inquilini</p>
-                  <p className="text-2xl font-bold">{stats.totalTenants}</p>
+            <CardHeader>
+              <CardTitle>Attività Recenti</CardTitle>
+              <CardDescription>Ultime operazioni effettuate</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <CreditCard className="h-4 w-4 text-green-500" />
+                  <div>
+                    <p className="text-sm font-medium">Pagamento ricevuto</p>
+                    <p className="text-xs text-gray-500">Via Torino 67 - €900</p>
+                  </div>
                 </div>
-                <Users className="h-8 w-8 text-green-600" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Entrate Mensili</p>
-                  <p className="text-2xl font-bold">€{stats.monthlyRevenue.toLocaleString()}</p>
+                <div className="flex items-center space-x-3">
+                  <FileText className="h-4 w-4 text-blue-500" />
+                  <div>
+                    <p className="text-sm font-medium">Contratto firmato</p>
+                    <p className="text-xs text-gray-500">Luca Bianchi - Via Napoli 12</p>
+                  </div>
                 </div>
-                <Euro className="h-8 w-8 text-purple-600" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Pagamenti in Sospeso</p>
-                  <p className="text-2xl font-bold text-orange-600">{stats.pendingPayments}</p>
+                <div className="flex items-center space-x-3">
+                  <AlertCircle className="h-4 w-4 text-orange-500" />
+                  <div>
+                    <p className="text-sm font-medium">Richiesta manutenzione</p>
+                    <p className="text-xs text-gray-500">Via Roma 123 - Perdita rubinetto</p>
+                  </div>
                 </div>
-                <Clock className="h-8 w-8 text-orange-600" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Manutenzioni</p>
-                  <p className="text-2xl font-bold text-red-600">{stats.maintenanceRequests}</p>
-                </div>
-                <AlertTriangle className="h-8 w-8 text-red-600" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">Contratti in Scadenza</p>
-                  <p className="text-2xl font-bold text-yellow-600">{stats.expiringContracts}</p>
-                </div>
-                <FileText className="h-8 w-8 text-yellow-600" />
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Main Content */}
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="overview">Panoramica</TabsTrigger>
-            <TabsTrigger value="properties">Proprietà</TabsTrigger>
-            <TabsTrigger value="tenants">Inquilini</TabsTrigger>
-            <TabsTrigger value="payments">Pagamenti</TabsTrigger>
-            <TabsTrigger value="maintenance">Manutenzioni</TabsTrigger>
-            <TabsTrigger value="contracts">Contratti</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* Recent Payments */}
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle>Pagamenti Recenti</CardTitle>
-                    <Link href="/dashboard/payments">
-                      <Button variant="outline" size="sm">
-                        Vedi tutti
-                      </Button>
-                    </Link>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {recentPayments.map((payment) => (
-                      <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg">
-                        <div>
-                          <p className="font-medium">{payment.tenant}</p>
-                          <p className="text-sm text-gray-600">{payment.property}</p>
-                          <p className="text-sm text-gray-500">{payment.date}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className="font-semibold">€{payment.amount}</p>
-                          <Badge className={getStatusColor(payment.status)}>{getStatusText(payment.status)}</Badge>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Upcoming Tasks */}
-              <Card>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle>Attività in Programma</CardTitle>
-                    <Button variant="outline" size="sm">
-                      <Plus className="h-4 w-4 mr-2" />
-                      Aggiungi
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {upcomingTasks.map((task) => (
-                      <div key={task.id} className="flex items-center space-x-4 p-4 border rounded-lg">
-                        <div className="flex-shrink-0">
-                          {task.type === "maintenance" && <AlertTriangle className="h-5 w-5 text-red-500" />}
-                          {task.type === "contract" && <FileText className="h-5 w-5 text-blue-500" />}
-                          {task.type === "inspection" && <CheckCircle className="h-5 w-5 text-green-500" />}
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-medium">{task.title}</p>
-                          <p className="text-sm text-gray-600">{task.property || task.tenant}</p>
-                        </div>
-                        <div className="text-sm text-gray-500">{task.date}</div>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Azioni Rapide</CardTitle>
-                <CardDescription>Accedi rapidamente alle funzioni più utilizzate</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <Link href="/dashboard/properties/new">
-                    <Button variant="outline" className="h-20 flex flex-col space-y-2 bg-transparent">
-                      <Building2 className="h-6 w-6" />
-                      <span>Nuova Proprietà</span>
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard/tenants/new">
-                    <Button variant="outline" className="h-20 flex flex-col space-y-2 bg-transparent">
-                      <Users className="h-6 w-6" />
-                      <span>Nuovo Inquilino</span>
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard/contracts/new">
-                    <Button variant="outline" className="h-20 flex flex-col space-y-2 bg-transparent">
-                      <FileText className="h-6 w-6" />
-                      <span>Nuovo Contratto</span>
-                    </Button>
-                  </Link>
-                  <Link href="/dashboard/maintenance/new">
-                    <Button variant="outline" className="h-20 flex flex-col space-y-2 bg-transparent">
-                      <Calendar className="h-6 w-6" />
-                      <span>Manutenzione</span>
-                    </Button>
-                  </Link>
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Andamento Entrate</CardTitle>
+              <CardDescription>Entrate mensili degli ultimi 6 mesi</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="h-64 flex items-center justify-center bg-gray-50 rounded">
+                <div className="text-center">
+                  <TrendingUp className="h-12 w-12 text-gray-400 mx-auto mb-2" />
+                  <p className="text-gray-500">Grafico entrate mensili</p>
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+              </div>
+            </CardContent>
+          </Card>
 
-          <TabsContent value="properties">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Le Tue Proprietà</CardTitle>
-                  <Link href="/dashboard/properties/new">
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Aggiungi Proprietà
-                    </Button>
-                  </Link>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Building2 className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Gestisci le tue proprietà da qui</p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Aggiungi, modifica e monitora tutte le tue proprietà in affitto
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="tenants">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Gestione Inquilini</CardTitle>
-                  <Link href="/dashboard/tenants/new">
-                    <Button>
-                      <Plus className="h-4 w-4 mr-2" />
-                      Aggiungi Inquilino
-                    </Button>
-                  </Link>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Gestisci i tuoi inquilini</p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Aggiungi inquilini, gestisci coinquilini e monitora i contratti
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="payments">
-            <Card>
-              <CardHeader>
-                <CardTitle>Gestione Pagamenti</CardTitle>
-                <CardDescription>Monitora pagamenti, depositi cauzionali e genera ricevute automatiche</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {recentPayments.map((payment) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <p className="font-medium">{payment.tenant}</p>
-                        <p className="text-sm text-gray-600">{payment.property}</p>
-                        <p className="text-sm text-gray-500">{payment.date}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-semibold">€{payment.amount}</p>
-                        <Badge className={getStatusColor(payment.status)}>{getStatusText(payment.status)}</Badge>
-                      </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Scadenze Imminenti</CardTitle>
+              <CardDescription>Contratti e pagamenti in scadenza</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                  <div className="flex items-center space-x-3">
+                    <Calendar className="h-4 w-4 text-red-500" />
+                    <div>
+                      <p className="font-medium">Contratto in scadenza</p>
+                      <p className="text-sm text-gray-500">Via Roma 123 - 15 giorni</p>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="maintenance">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Manutenzioni e Lavori</CardTitle>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Nuova Manutenzione
+                  </div>
+                  <Button size="sm" variant="outline">
+                    Rinnova
                   </Button>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <AlertTriangle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Gestisci manutenzioni e interventi</p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    Programma, traccia e gestisci tutti gli interventi di manutenzione
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
 
-          <TabsContent value="contracts">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle>Contratti di Locazione</CardTitle>
-                  <Button>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Nuovo Contratto
+                <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
+                  <div className="flex items-center space-x-3">
+                    <CreditCard className="h-4 w-4 text-yellow-500" />
+                    <div>
+                      <p className="font-medium">Pagamento in scadenza</p>
+                      <p className="text-sm text-gray-500">Via Milano 45 - 3 giorni</p>
+                    </div>
+                  </div>
+                  <Button size="sm" variant="outline">
+                    Sollecita
                   </Button>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8">
-                  <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Gestisci contratti e firme digitali</p>
-                  <p className="text-sm text-gray-500 mt-2">Crea, firma e gestisci tutti i contratti di locazione</p>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   )
